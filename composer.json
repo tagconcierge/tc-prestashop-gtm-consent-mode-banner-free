@@ -1,0 +1,27 @@
+{
+  "name": "tagconcierge/tc-prestashop-gtm-consent-mode-banner-free",
+  "type": "prestashop-module",
+  "description": "Leverage the Flexibility of Google Tag Manager to Measure and Optimize Sales Results (GA4 ready).",
+  "autoload": {
+    "psr-4": {
+      "TagConcierge\\GtmConsentModeBannerFree\\": "src/"
+    }
+  },
+  "config": {
+    "prepend-autoloader": false,
+    "sort-packages": true
+  },
+  "require": {
+    "php": "^7.1",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.14",
+    "prestashop/autoindex": "^1.0",
+    "prestashop/php-dev-tools": "^3.16",
+    "roave/security-advisories": "dev-latest"
+  },
+  "scripts": {
+    "fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes"
+  }
+}

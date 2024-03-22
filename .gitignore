@@ -1,0 +1,11 @@
+/.docker/
+/.idea/
+/dist
+/vendor/
+/config.xml
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###

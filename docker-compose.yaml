@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+    prestashop:
+        image: prestashop/prestashop:8.0.3
+        links:
+            - mariadb
+        ports:
+            - "80:80"
+        volumes:
+            - ./.docker/prestashop:/var/www/html
+            - .:/var/www/html/modules/gtmconsentmodebannerfree
+        environment:
+            DB_SERVER: mariadb
+            DB_USER: root
+            DB_PASSWD: password
+            PS_DEV_MODE: 1
+            PS_DEMO_MODE: 0
+            PS_INSTALL_AUTO: 1
+            PS_DOMAIN: prestashop.local
+            ADMIN_MAIL: contact@tagconcierge.com
+            ADMIN_PASSWD: tag_concierge_admin
+    mariadb:
+        image: mariadb:10.6
+        ports:
+            - 3306:3306
+        volumes:
+            - ./.docker/mariadb:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: prestashop
+    php-cli:
+        image: mfrankiewicz/php:7.1-cli
+        working_dir: /var/www
+        entrypoint: bash
+        volumes:
+            - ./:/var/www
