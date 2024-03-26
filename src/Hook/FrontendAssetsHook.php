@@ -29,7 +29,7 @@ class FrontendAssetsHook extends AbstractHook
             return '';
         }
 
-        $consentTypes = ConfigurationVO::getConsentTypes();
+        $consentTypes = $this->getConsentTypes();
 
         $consentTypes = array_reduce($consentTypes, static function($agg, $type) {
             if ('' === $type['name']) {
@@ -106,7 +106,7 @@ class FrontendAssetsHook extends AbstractHook
             return $agg;
         }, []);
 
-        $consentTypes = ConfigurationVO::getConsentTypes();
+        $consentTypes = $this->getConsentTypes();
 
         $config = [
             'display' => [
@@ -140,7 +140,7 @@ class FrontendAssetsHook extends AbstractHook
         return $this->module->render('hooks/frontend_assets/banner_script.tpl');
     }
 
-    private function isEnabled(): bool
+    protected function isEnabled(): bool
     {
         $isEnabledOnlyForAdmins = (bool) PrestaShopConfiguration::get(ConfigurationVO::ENABLED_ONLY_FOR_ADMIN);
 
@@ -151,5 +151,10 @@ class FrontendAssetsHook extends AbstractHook
         $cookie = new PrestaShopCookie('psAdmin');
 
         return false !== $cookie->id_employee;
+    }
+
+    protected function getConsentTypes(): array
+    {
+        return ConfigurationVO::getConsentTypes();
     }
 }

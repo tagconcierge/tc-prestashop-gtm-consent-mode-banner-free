@@ -326,29 +326,39 @@ class ConfigurationVO
     ];
 
     private static $defaultValues = [
-        self::CUSTOM_CSS => '.consent-banner-button {
-color:#af1d1f;
-border-color:#af1d1f;
-background-color: transparent;
-border-width: 2px;
-padding: 8px 27px;
-border-radius: 3px;
+        self::CUSTOM_CSS => '#consent-banner-settings,
+#consent-banner-modal {
+    border-radius: 6px !important;
+}
+
+
+.consent-banner-button {
+    color:#af1d1f;
+    border-color:#af1d1f;
+    background-color: transparent;
+    border-width: 2px;
+    padding: 8px 27px;
+    border-radius: 3px;
 }
 
 .consent-banner-button:hover {
-color: #d83e40;
-border-color: #d83e40;
+    color: #d83e40;
+    border-color: #d83e40;
 }
 
 .consent-banner-button[href="#accept"] {
-color: #ffffff;
-border-color: #af1d1f;
-background-color: #af1d1f;
+    color: #ffffff;
+    border-color: #af1d1f;
+    background-color: #af1d1f;
 }
 
 .consent-banner-button[href="#accept"]:hover {
-border-color: #d83e40;
-background-color: #d83e40;
+    border-color: #d83e40;
+    background-color: #d83e40;
+}
+
+#consent-banner-settings ul label {
+    margin-left: 11px;
 }',
         self::DISPLAY_MODE => 'bar',
         self::WALL => false,
