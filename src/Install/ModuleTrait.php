@@ -57,7 +57,7 @@ trait ModuleTrait
         $this->context->smarty->assign('module_dir', $this->_path);
         $this->context->smarty->assign('plugin_version', $this->version);
 
-        $output = '';
+        $output = false === isset($this->pro) ? $this->getInfoBox() : '';
 
         if (method_exists($this, 'handleConsentTypes')) {
             $this->handleConsentTypes();
@@ -148,6 +148,11 @@ trait ModuleTrait
                 $this->hooks[$hookName][$hookClass] = $callbacks;
             }
         }
+    }
+
+    private function getInfoBox(): string
+    {
+        return $this->render('admin/info_box.tpl');
     }
 
     public function render(string $templatePath): string
