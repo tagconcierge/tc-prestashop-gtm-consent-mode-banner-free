@@ -6,80 +6,14 @@ use Cookie as PrestaShopCookie;
 use Configuration as PrestaShopConfiguration;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
-class FrontendAssetsHook extends AbstractHook
+class BannerScriptHook extends AbstractHook
 {
     /** @var array */
     public const HOOKS = [
-        Hooks::DISPLAY_HEADER => [
-            'loadInitialScript',
-            'loadGtmScript',
-            'loadCss',
-        ],
-        Hooks::DISPLAY_AFTER_BODY_OPENING_TAG => [
-            'loadGtmFrame',
-        ],
         Hooks::DISPLAY_BEFORE_BODY_CLOSING_TAG => [
             'loadBannerScript',
         ],
     ];
-
-    public function loadInitialScript(): string
-    {
-        if (false === $this->isEnabled()) {
-            return '';
-        }
-
-        $consentTypes = $this->getConsentTypes();
-
-        $consentTypes = array_reduce($consentTypes, static function($agg, $type) {
-            if ('' === $type['name']) {
-                return $agg;
-            }
-
-            if ('' !== $type['additional_consent_types']) {
-                foreach (explode(',', $type['additional_consent_types']) as $key) {
-                    $agg[$key] = $type['default'] === 'required' ? 'granted' : $type['default'];
-                }
-            }
-            $agg[$type['name']] = $type['default'] === 'required' ? 'granted' : $type['default'];
-            return $agg;
-        }, []);
-
-        $this->getContext()->smarty->assign('tc_gtmcb_consent_type', $consentTypes);
-
-        return $this->module->render('hooks/frontend_assets/initial_script.tpl');
-    }
-
-    public function loadGtmScript(): string
-    {
-        if (false === $this->isEnabled()) {
-            return '';
-        }
-
-        return PrestaShopConfiguration::get(ConfigurationVO::GTM_CONTAINER_SNIPPET_HEAD);
-    }
-
-    public function loadGtmFrame(): string
-    {
-        if (false === $this->isEnabled()) {
-            return '';
-        }
-
-        return PrestaShopConfiguration::get(ConfigurationVO::GTM_CONTAINER_SNIPPET_BODY);
-    }
-
-    public function loadCss(): string
-    {
-        if (false === $this->isEnabled()) {
-            return '';
-        }
-
-        $customCss = PrestaShopConfiguration::get(ConfigurationVO::CUSTOM_CSS);
-
-        $this->getContext()->smarty->assign('tc_gtmcb_custom_css', $customCss);
-
-        return $this->module->render('hooks/frontend_assets/css.tpl');
-    }
 
     public function loadBannerScript(): string
     {
@@ -137,7 +71,7 @@ class FrontendAssetsHook extends AbstractHook
 
         $this->getContext()->smarty->assign('tc_gtmcb_config', $config);
 
-        return $this->module->render('hooks/frontend_assets/banner_script.tpl');
+        return $this->module->render('hooks/banner_script/banner_script.tpl');
     }
 
     protected function isEnabled(): bool
