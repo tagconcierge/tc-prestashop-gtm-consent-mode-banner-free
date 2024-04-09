@@ -3,6 +3,7 @@
 namespace TagConcierge\GtmConsentModeBannerFree\Install;
 
 use Configuration as PrestaShopConfiguration;
+use TagConcierge\GtmConsentModeBannerFree\Service\SettingsService;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 use TagConcierge\GtmConsentModeBannerFree\Hook\HookProvider;
 use Tools as PrestaShopTools;
@@ -17,13 +18,17 @@ trait ModuleTrait
      */
     private $hookProvider;
 
-    abstract protected function getConsentTypesForm(): string;
+    /**
+     * @var SettingsService
+     */
+    private $settingsService;
 
     private function init(): void
     {
         @define('TC_GTMCMB_VERSION', $this->version);
 
         $this->hookProvider = new HookProvider($this);
+        $this->settingsService = new SettingsService($this);
         $this->setupHooks();
     }
 
@@ -59,8 +64,12 @@ trait ModuleTrait
 
         $output = false === $this->isPro() ? $this->getInfoBox() : '';
 
-        if (method_exists($this, 'handleConsentTypes')) {
-            $this->handleConsentTypes();
+        if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_consent_types')) {
+            PrestaShopConfiguration::updateValue(
+                ConfigurationVO::CONSENT_TYPES,
+                json_encode(PrestaShopTools::getValue(ConfigurationVO::CONSENT_TYPES)),
+                ConfigurationVO::isHtmlField(ConfigurationVO::CONSENT_TYPES)
+            );
         }
 
         foreach (array_keys(ConfigurationVO::getForms()) as $formName) {
@@ -137,6 +146,15 @@ trait ModuleTrait
         return $output . $this->getConsentTypesForm();
     }
 
+    protected function getConsentTypesForm(): string
+    {
+        $this->context->smarty->assign('consent_types', $this->settingsService->getConsentTypesFields());
+        $this->context->smarty->assign('form_action_url', $this->context->link->getAdminLink('AdminModules', true)
+            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name);
+
+        return $this->render('admin/consent_types_form.tpl');
+    }
+
     public function getHooks(): array
     {
         return array_keys($this->hooks);
@@ -174,6 +192,11 @@ trait ModuleTrait
             static::MODULE_FILE,
             $path
         );
+    }
+
+    public function getSettingsService(): SettingsService
+    {
+        return $this->settingsService;
     }
 
     public function __call(string $name, array $arguments)

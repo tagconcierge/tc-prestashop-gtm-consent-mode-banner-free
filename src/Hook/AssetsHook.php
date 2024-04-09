@@ -2,10 +2,6 @@
 
 namespace TagConcierge\GtmConsentModeBannerFree\Hook;
 
-use Cookie as PrestaShopCookie;
-use Configuration as PrestaShopConfiguration;
-use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
-
 class AssetsHook extends AbstractHook
 {
     use HookTrait;

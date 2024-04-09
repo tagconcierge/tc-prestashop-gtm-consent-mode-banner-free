@@ -2,7 +2,6 @@
 
 namespace TagConcierge\GtmConsentModeBannerFree\Hook;
 
-use Cookie as PrestaShopCookie;
 use Configuration as PrestaShopConfiguration;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
@@ -42,7 +41,7 @@ class BannerScriptHook extends AbstractHook
             return $agg;
         }, []);
 
-        $consentTypes = $this->getConsentTypes();
+        $consentTypes = $this->module->getSettingsService()->getConsentTypes();
 
         $config = [
             'display' => [
@@ -74,10 +73,5 @@ class BannerScriptHook extends AbstractHook
         $this->getContext()->smarty->assign('tc_gtmcb_config', $config);
 
         return $this->module->render('hooks/banner_script/banner_script.tpl');
-    }
-
-    protected function getConsentTypes(): array
-    {
-        return ConfigurationVO::getConsentTypes();
     }
 }

@@ -49,28 +49,6 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
         $this->init();
     }
 
-    protected function getConsentTypesForm(): string
-    {
-        $consentTypes = ConfigurationVO::getConsentTypes();
-
-        $this->context->smarty->assign('consent_types', $consentTypes);
-        $this->context->smarty->assign('form_action_url', $this->context->link->getAdminLink('AdminModules', true)
-            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name);
-
-        return $this->render('admin/consent_types_form.tpl');
-    }
-
-    protected function handleConsentTypes(): void
-    {
-        if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_consent_types')) {
-            PrestaShopConfiguration::updateValue(
-                ConfigurationVO::CONSENT_TYPES,
-                json_encode(PrestaShopTools::getValue(ConfigurationVO::CONSENT_TYPES)),
-                ConfigurationVO::isHtmlField(ConfigurationVO::CONSENT_TYPES)
-            );
-        }
-    }
-
     public function isPro(): bool
     {
         return false;

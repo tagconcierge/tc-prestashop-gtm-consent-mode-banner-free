@@ -2,10 +2,6 @@
 
 namespace TagConcierge\GtmConsentModeBannerFree\Hook;
 
-use Cookie as PrestaShopCookie;
-use Configuration as PrestaShopConfiguration;
-use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
-
 class InitialScriptHook extends AbstractHook
 {
     use HookTrait;
@@ -23,7 +19,7 @@ class InitialScriptHook extends AbstractHook
             return '';
         }
 
-        $consentTypes = $this->getConsentTypes();
+        $consentTypes = $this->module->getSettingsService()->getConsentTypes();
 
         $consentTypes = array_reduce($consentTypes, static function($agg, $type) {
             if ('' === $type['name']) {
@@ -42,10 +38,5 @@ class InitialScriptHook extends AbstractHook
         $this->getContext()->smarty->assign('tc_gtmcb_consent_type', $consentTypes);
 
         return $this->module->render('hooks/initial_script/initial_script.tpl');
-    }
-
-    protected function getConsentTypes(): array
-    {
-        return ConfigurationVO::getConsentTypes();
     }
 }

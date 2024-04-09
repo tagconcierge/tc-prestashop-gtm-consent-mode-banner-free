@@ -461,52 +461,6 @@ You can enable or disable some or all of these cookies, but disabling some of th
         return self::$defaultValues[$fieldName] ?? null;
     }
 
-    public static function getConsentTypes(): array
-    {
-        $defaultConsentTypes = [
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-        ];
-
-        try {
-            $consentTypes = array_slice(json_decode(PrestaShopConfiguration::get(ConfigurationVO::CONSENT_TYPES), true), 0, 4);
-        } catch (\Throwable $e) {
-            $consentTypes = $defaultConsentTypes;
-        }
-
-        if (false === is_array($consentTypes)) {
-            $consentTypes = $defaultConsentTypes;
-        }
-
-        foreach ($consentTypes as &$consentType) {
-            $consentType['additional_consent_types'] = '';
-        }
-
-        return $consentTypes;
-    }
-
     public static function isProFeature(string $fieldName): bool
     {
         return true === in_array($fieldName, self::$proFields);
