@@ -6,7 +6,7 @@ use Cookie as PrestaShopCookie;
 use Configuration as PrestaShopConfiguration;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
-class GtmHook extends AbstractHook
+class NotificationHook extends AbstractHook
 {
     use HookTrait;
 

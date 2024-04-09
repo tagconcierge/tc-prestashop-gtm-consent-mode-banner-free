@@ -8,6 +8,8 @@ use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
 class InitialScriptHook extends AbstractHook
 {
+    use HookTrait;
+
     /** @var array */
     public const HOOKS = [
         Hooks::DISPLAY_HEADER => [
@@ -40,19 +42,6 @@ class InitialScriptHook extends AbstractHook
         $this->getContext()->smarty->assign('tc_gtmcb_consent_type', $consentTypes);
 
         return $this->module->render('hooks/initial_script/initial_script.tpl');
-    }
-
-    protected function isEnabled(): bool
-    {
-        $isEnabledOnlyForAdmins = (bool) PrestaShopConfiguration::get(ConfigurationVO::ENABLED_ONLY_FOR_ADMIN);
-
-        if (false === $isEnabledOnlyForAdmins) {
-            return true;
-        }
-
-        $cookie = new PrestaShopCookie('psAdmin');
-
-        return false !== $cookie->id_employee;
     }
 
     protected function getConsentTypes(): array

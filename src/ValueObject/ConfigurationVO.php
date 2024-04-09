@@ -491,7 +491,7 @@ You can enable or disable some or all of these cookies, but disabling some of th
         ];
 
         try {
-            $consentTypes = json_decode(PrestaShopConfiguration::get(ConfigurationVO::CONSENT_TYPES), true);
+            $consentTypes = array_slice(json_decode(PrestaShopConfiguration::get(ConfigurationVO::CONSENT_TYPES), true), 0, 4);
         } catch (\Throwable $e) {
             $consentTypes = $defaultConsentTypes;
         }

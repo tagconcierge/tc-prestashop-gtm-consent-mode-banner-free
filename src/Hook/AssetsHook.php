@@ -8,6 +8,8 @@ use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
 class AssetsHook extends AbstractHook
 {
+    use HookTrait;
+
     /** @var array */
     public const HOOKS = [
         Hooks::ACTION_FRONT_CONTROLLER_SET_MEDIA => [
@@ -32,18 +34,5 @@ class AssetsHook extends AbstractHook
             'https://public-assets.tagconcierge.com/cookies-banner-js/1.0.0/styles/light.css',
             ['server' => 'remote', 'position' => 'head', 'priority' => 20]
         );
-    }
-
-    protected function isEnabled(): bool
-    {
-        $isEnabledOnlyForAdmins = (bool) PrestaShopConfiguration::get(ConfigurationVO::ENABLED_ONLY_FOR_ADMIN);
-
-        if (false === $isEnabledOnlyForAdmins) {
-            return true;
-        }
-
-        $cookie = new PrestaShopCookie('psAdmin');
-
-        return false !== $cookie->id_employee;
     }
 }

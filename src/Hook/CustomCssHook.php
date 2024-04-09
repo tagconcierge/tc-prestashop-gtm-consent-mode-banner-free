@@ -8,6 +8,8 @@ use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
 class CustomCssHook extends AbstractHook
 {
+    use HookTrait;
+
     /** @var array */
     public const HOOKS = [
         Hooks::DISPLAY_HEADER => [
@@ -26,18 +28,5 @@ class CustomCssHook extends AbstractHook
         $this->getContext()->smarty->assign('tc_gtmcb_custom_css', $customCss);
 
         return $this->module->render('hooks/custom_css/css.tpl');
-    }
-
-    protected function isEnabled(): bool
-    {
-        $isEnabledOnlyForAdmins = (bool) PrestaShopConfiguration::get(ConfigurationVO::ENABLED_ONLY_FOR_ADMIN);
-
-        if (false === $isEnabledOnlyForAdmins) {
-            return true;
-        }
-
-        $cookie = new PrestaShopCookie('psAdmin');
-
-        return false !== $cookie->id_employee;
     }
 }
