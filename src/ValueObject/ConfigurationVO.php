@@ -69,6 +69,13 @@ class ConfigurationVO
     /** @var string */
     public const CONSENT_TYPES = 'TC_GTMCMB_CONSENT_TYPES';
 
+    /** @var string */
+    public const COOKIE_REMOVAL_ON_DENIAL = 'TC_GTMCMB_COOKIE_REMOVAL_ON_DENIAL';
+
+    private static $proFields = [
+        self::COOKIE_REMOVAL_ON_DENIAL
+    ];
+
     /**
      * @var array
      */
@@ -114,6 +121,24 @@ class ConfigurationVO
             'label' => 'Enable only default consent mode?',
             'is_bool' => true,
             'desc' => 'When checked the plugin will only load default consent mode state.',
+            'values' => [
+                [
+                    'id' => 'active',
+                    'value' => true,
+                    'label' => 'Enabled',
+                ],
+                [
+                    'id' => 'inactive',
+                    'value' => false,
+                    'label' => 'Disabled',
+                ],
+            ],
+        ],
+        self::COOKIE_REMOVAL_ON_DENIAL => [
+            'type' => 'switch',
+            'label' => 'Remove cookies on consent denial?',
+            'is_bool' => true,
+            'desc' => 'When checked the plugin will remove tracking cookies from user\'s browser if consent was denied.',
             'values' => [
                 [
                     'id' => 'active',
@@ -268,6 +293,7 @@ class ConfigurationVO
                 self::STATE,
                 self::ENABLED_ONLY_FOR_ADMIN,
                 self::ENABLED_ONLY_DEFAULT_CONSENT_MODE,
+                self::COOKIE_REMOVAL_ON_DENIAL,
                 self::DISPLAY_MODE,
                 self::WALL,
                 self::THEME,
@@ -479,5 +505,10 @@ You can enable or disable some or all of these cookies, but disabling some of th
         }
 
         return $consentTypes;
+    }
+
+    public static function isProFeature(string $fieldName): bool
+    {
+        return true === in_array($fieldName, self::$proFields);
     }
 }

@@ -57,7 +57,7 @@ trait ModuleTrait
         $this->context->smarty->assign('module_dir', $this->_path);
         $this->context->smarty->assign('plugin_version', $this->version);
 
-        $output = false === isset($this->pro) ? $this->getInfoBox() : '';
+        $output = false === $this->isPro() ? $this->getInfoBox() : '';
 
         if (method_exists($this, 'handleConsentTypes')) {
             $this->handleConsentTypes();
@@ -105,6 +105,12 @@ trait ModuleTrait
             foreach (ConfigurationVO::getFormFields($formName) as $key => $value) {
                 $vars[$key] = PrestaShopConfiguration::get($key);
                 $value['name'] = $key;
+
+                if (true === ConfigurationVO::isProFeature($key) && false === $this->isPro()) {
+                    $value['disabled'] = true;
+                    $value['desc'] .= ' <a href="https://tagconcierge.com/consent-mode-banner#prestashop" target="_blank">Upgrade to PRO</a>';
+                    $vars[$key] = false;
+                }
 
                 $input[] = $value;
             }

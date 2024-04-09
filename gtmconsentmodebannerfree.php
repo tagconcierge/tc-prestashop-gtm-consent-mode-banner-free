@@ -66,4 +66,9 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
             );
         }
     }
+
+    public function isPro(): bool
+    {
+        return false;
+    }
 }

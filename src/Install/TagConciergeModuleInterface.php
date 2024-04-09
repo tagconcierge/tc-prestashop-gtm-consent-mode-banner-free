@@ -7,4 +7,6 @@ interface TagConciergeModuleInterface
     public function render(string $templatePath): string;
 
     public function getHooks(): array;
+
+    public function isPro(): bool;
 }
