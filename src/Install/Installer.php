@@ -3,6 +3,7 @@
 namespace TagConcierge\GtmConsentModeBannerFree\Install;
 
 use Configuration as PrestaShopConfiguration;
+use DateTime;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
 class Installer
@@ -24,12 +25,19 @@ class Installer
             PrestaShopConfiguration::updateValue($key, $boolean ? false : '');
         }
 
+        if (false === PrestaShopConfiguration::get(ConfigurationVO::INSTALLATION_DATE)) {
+            PrestaShopConfiguration::updateValue(ConfigurationVO::INSTALLATION_DATE, (new DateTime())->getTimestamp());
+        }
+
         return $this->registerHooks($module);
     }
 
     public function uninstall(TagConciergeModuleInterface $module): bool
     {
         foreach (array_keys(ConfigurationVO::getFields()) as $key) {
+            if (ConfigurationVO::INSTALLATION_DATE === $key) {
+                continue;
+            }
             PrestaShopConfiguration::deleteByName($key);
         }
 

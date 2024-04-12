@@ -10,6 +10,9 @@ class ConfigurationVO
     public const STATE = 'TC_GTMCMB_STATE';
 
     /** @var string */
+    public const INSTALLATION_DATE = 'TC_GTMCMB_INSTALLATION_DATE';
+
+    /** @var string */
     public const ENABLED_ONLY_FOR_ADMIN = 'TC_GTMCMB_ENABLED_ONLY_FOR_ADMIN';
 
     /** @var string */
@@ -69,6 +72,13 @@ class ConfigurationVO
     /** @var string */
     public const CONSENT_TYPES = 'TC_GTMCMB_CONSENT_TYPES';
 
+    /** @var string */
+    public const COOKIE_REMOVAL_ON_DENIAL = 'TC_GTMCMB_COOKIE_REMOVAL_ON_DENIAL';
+
+    private static $proFields = [
+        self::COOKIE_REMOVAL_ON_DENIAL
+    ];
+
     /**
      * @var array
      */
@@ -114,6 +124,24 @@ class ConfigurationVO
             'label' => 'Enable only default consent mode?',
             'is_bool' => true,
             'desc' => 'When checked the plugin will only load default consent mode state.',
+            'values' => [
+                [
+                    'id' => 'active',
+                    'value' => true,
+                    'label' => 'Enabled',
+                ],
+                [
+                    'id' => 'inactive',
+                    'value' => false,
+                    'label' => 'Disabled',
+                ],
+            ],
+        ],
+        self::COOKIE_REMOVAL_ON_DENIAL => [
+            'type' => 'switch',
+            'label' => 'Remove cookies on consent denial?',
+            'is_bool' => true,
+            'desc' => 'When checked the plugin will remove tracking cookies from user\'s browser if consent was denied.',
             'values' => [
                 [
                     'id' => 'active',
@@ -268,6 +296,7 @@ class ConfigurationVO
                 self::STATE,
                 self::ENABLED_ONLY_FOR_ADMIN,
                 self::ENABLED_ONLY_DEFAULT_CONSENT_MODE,
+                self::COOKIE_REMOVAL_ON_DENIAL,
                 self::DISPLAY_MODE,
                 self::WALL,
                 self::THEME,
@@ -326,29 +355,39 @@ class ConfigurationVO
     ];
 
     private static $defaultValues = [
-        self::CUSTOM_CSS => '.consent-banner-button {
-color:#af1d1f;
-border-color:#af1d1f;
-background-color: transparent;
-border-width: 2px;
-padding: 8px 27px;
-border-radius: 3px;
+        self::CUSTOM_CSS => '#consent-banner-settings,
+#consent-banner-modal {
+    border-radius: 6px !important;
+}
+
+
+.consent-banner-button {
+    color:#af1d1f;
+    border-color:#af1d1f;
+    background-color: transparent;
+    border-width: 2px;
+    padding: 8px 27px;
+    border-radius: 3px;
 }
 
 .consent-banner-button:hover {
-color: #d83e40;
-border-color: #d83e40;
+    color: #d83e40;
+    border-color: #d83e40;
 }
 
 .consent-banner-button[href="#accept"] {
-color: #ffffff;
-border-color: #af1d1f;
-background-color: #af1d1f;
+    color: #ffffff;
+    border-color: #af1d1f;
+    background-color: #af1d1f;
 }
 
 .consent-banner-button[href="#accept"]:hover {
-border-color: #d83e40;
-background-color: #d83e40;
+    border-color: #d83e40;
+    background-color: #d83e40;
+}
+
+#consent-banner-settings ul label {
+    margin-left: 11px;
 }',
         self::DISPLAY_MODE => 'bar',
         self::WALL => false,
@@ -425,49 +464,8 @@ You can enable or disable some or all of these cookies, but disabling some of th
         return self::$defaultValues[$fieldName] ?? null;
     }
 
-    public static function getConsentTypes(): array
+    public static function isProFeature(string $fieldName): bool
     {
-        $defaultConsentTypes = [
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-            [
-                'name' => '',
-                'title' => '',
-                'description' => '',
-                'default' => '',
-            ],
-        ];
-
-        try {
-            $consentTypes = json_decode(PrestaShopConfiguration::get(ConfigurationVO::CONSENT_TYPES), true);
-        } catch (\Throwable $e) {
-            $consentTypes = $defaultConsentTypes;
-        }
-
-        if (false === is_array($consentTypes)) {
-            $consentTypes = $defaultConsentTypes;
-        }
-
-        foreach ($consentTypes as &$consentType) {
-            $consentType['additional_consent_types'] = '';
-        }
-
-        return $consentTypes;
+        return true === in_array($fieldName, self::$proFields);
     }
 }

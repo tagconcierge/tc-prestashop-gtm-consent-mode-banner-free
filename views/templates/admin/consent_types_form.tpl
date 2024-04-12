@@ -7,14 +7,20 @@
                 <div class="col-lg-2">
                     <strong>Consent Type</strong>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <strong>Title</strong>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <strong>Description</strong>
                 </div>
                 <div class="col-lg-2">
                     <strong>Default</strong>
+                </div>
+                <div class="col-lg-2">
+                    <strong>Additional Types - <a href="https://tagconcierge.com/consent-mode-banner#prestashop" target="_blank">Upgrade to PRO</a></strong>
+                </div>
+                <div class="col-lg-1">
+                    &nbsp;
                 </div>
             </div>
 
@@ -23,10 +29,10 @@
                     <div class="col-lg-2">
                         <input type="text" class="form-control" name="TC_GTMCMB_CONSENT_TYPES[{$index}][name]" value="{$consent_type.name}" />
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <input type="text" class="form-control" name="TC_GTMCMB_CONSENT_TYPES[{$index}][title]" value="{$consent_type.title}" />
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <textarea class="form-control" name="TC_GTMCMB_CONSENT_TYPES[{$index}][description]">{$consent_type.description}</textarea>
                     </div>
                     <div class="col-lg-2">
@@ -36,8 +42,20 @@
                             <option value="required"{if $consent_type.default eq 'required'} selected="selected"{/if}>Required</option>
                         </select>
                     </div>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="remove-consent-type" href="#" style=" pointer-events: none; color: gray">remove</a> <a href="https://tagconcierge.com/consent-mode-banner#prestashop" target="_blank">Upgrade to PRO</a>
+                    </div>
                 </div>
             {/foreach}
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-default" disabled="disabled">
+                    <i class="process-icon-new"></i> Add new consent type
+                </button><br />
+                <a href="https://tagconcierge.com/consent-mode-banner#prestashop" target="_blank">Upgrade to PRO</a>
+            </div>
         </div>
 
         <div class="panel-footer">
@@ -47,3 +65,12 @@
         </div>
     </div>
 </form>
+<script>
+  const removeLinks = document.querySelectorAll('.remove-consent-type');
+
+  removeLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+    });
+  });
+</script>
