@@ -19,7 +19,12 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
 
     /** @var array */
     const HOOKS = [
-        Hook\FrontendAssetsHook::class,
+        Hook\NotificationHook::class,
+        Hook\AssetsHook::class,
+        Hook\InitialScriptHook::class,
+        Hook\BannerScriptHook::class,
+        Hook\GtmHook::class,
+        Hook\CustomCssHook::class,
     ];
 
     /** @var string */
@@ -32,7 +37,7 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
     {
         $this->name = 'gtmconsentmodebannerfree';
         $this->author = 'Tag Concierge';
-        $this->version = '1.0.1';
+        $this->version = '1.0.2';
         $this->ps_versions_compliancy = ['min' => '1.7.1.0', 'max' => _PS_VERSION_];
         $this->bootstrap = true;
         $this->tab = 'advertising_marketing';
@@ -45,25 +50,18 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
         $this->init();
     }
 
-    protected function getConsentTypesForm(): string
+    public function isPro(): bool
     {
-        $consentTypes = ConfigurationVO::getConsentTypes();
-
-        $this->context->smarty->assign('consent_types', $consentTypes);
-        $this->context->smarty->assign('form_action_url', $this->context->link->getAdminLink('AdminModules', true)
-            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name);
-
-        return $this->render('admin/consent_types_form.tpl');
+        return false;
     }
 
-    protected function handleConsentTypes(): void
+    public function getNotificationKey(): string
     {
-        if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_consent_types')) {
-            PrestaShopConfiguration::updateValue(
-                ConfigurationVO::CONSENT_TYPES,
-                json_encode(PrestaShopTools::getValue(ConfigurationVO::CONSENT_TYPES)),
-                ConfigurationVO::isHtmlField(ConfigurationVO::CONSENT_TYPES)
-            );
-        }
+        return '3f06f392-93f8-4928-9135-3cfd571c8de6';
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
