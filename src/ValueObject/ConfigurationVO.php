@@ -10,6 +10,9 @@ class ConfigurationVO
     public const STATE = 'TC_GTMCMB_STATE';
 
     /** @var string */
+    public const INSTALLATION_DATE = 'TC_GTMCMB_INSTALLATION_DATE';
+
+    /** @var string */
     public const ENABLED_ONLY_FOR_ADMIN = 'TC_GTMCMB_ENABLED_ONLY_FOR_ADMIN';
 
     /** @var string */

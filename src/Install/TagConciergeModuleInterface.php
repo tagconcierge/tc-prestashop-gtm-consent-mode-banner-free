@@ -13,4 +13,8 @@ interface TagConciergeModuleInterface
     public function isPro(): bool;
 
     public function getSettingsService(): SettingsService;
+
+    public function getNotificationKey(): string;
+
+    public function getName(): string;
 }

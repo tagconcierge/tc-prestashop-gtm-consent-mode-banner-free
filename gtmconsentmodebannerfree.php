@@ -19,6 +19,7 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
 
     /** @var array */
     const HOOKS = [
+        Hook\NotificationHook::class,
         Hook\AssetsHook::class,
         Hook\InitialScriptHook::class,
         Hook\BannerScriptHook::class,
@@ -52,5 +53,15 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
     public function isPro(): bool
     {
         return false;
+    }
+
+    public function getNotificationKey(): string
+    {
+        return '3f06f392-93f8-4928-9135-3cfd571c8de6';
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
