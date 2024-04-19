@@ -54,6 +54,13 @@ trait ModuleTrait
         return $installer->uninstall($this);
     }
 
+    public function resetHooks(): bool
+    {
+        $installer = InstallerFactory::create();
+
+        return $installer->resetHooks($this);
+    }
+
     /**
      * @throws \SmartyException
      */

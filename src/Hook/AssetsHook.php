@@ -21,13 +21,13 @@ class AssetsHook extends AbstractHook
 
         $this->getContext()->controller->registerJavascript(
             'tag-concierge-consent-mode-banner',
-            'https://public-assets.tagconcierge.com/cookies-banner-js/1.0.0/consent-banner.min.js',
+            'https://public-assets.tagconcierge.com/consent-banner/1.1.0/cb.min.js',
             ['server' => 'remote', 'position' => 'head', 'priority' => 20]
         );
 
         $this->getContext()->controller->registerStylesheet(
             'tag-concierge-consent-mode-banner',
-            'https://public-assets.tagconcierge.com/cookies-banner-js/1.0.0/styles/light.css',
+            'https://public-assets.tagconcierge.com/consent-banner/1.1.0/styles/light.css',
             ['server' => 'remote', 'position' => 'head', 'priority' => 20]
         );
     }
