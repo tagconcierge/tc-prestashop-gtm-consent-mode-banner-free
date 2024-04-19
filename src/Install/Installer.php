@@ -44,12 +44,26 @@ class Installer
         return true;
     }
 
+    public function resetHooks(TagConciergeModuleInterface $module): bool
+    {
+        return $this->unregisterHooks($module) && $this->registerHooks($module);
+    }
+
     private function registerHooks(TagConciergeModuleInterface $module): bool
     {
         foreach ($module->getHooks() as $hook) {
             if (false === $module->registerHook($hook)) {
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    private function unregisterHooks(TagConciergeModuleInterface $module): bool
+    {
+        foreach ($module->getHooks() as $hook) {
+            $module->unregisterHook($hook);
         }
 
         return true;
