@@ -13,6 +13,7 @@ rm -Rf $RELEASE_DIR
 mkdir -p $RELEASE_DIR/gtmconsentmodebannerfree
 
 cp -R src $RELEASE_DIR/gtmconsentmodebannerfree/src
+cp -R upgrade $RELEASE_DIR/gtmconsentmodebannerfree/upgrade
 cp -R vendor $RELEASE_DIR/gtmconsentmodebannerfree/vendor
 cp -R views $RELEASE_DIR/gtmconsentmodebannerfree/views
 cp logo.png $RELEASE_DIR/gtmconsentmodebannerfree/logo.png
