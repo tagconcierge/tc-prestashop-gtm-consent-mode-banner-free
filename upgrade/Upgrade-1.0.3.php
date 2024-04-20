@@ -4,7 +4,11 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-function upgradeModule103(GtmConsentModeBannerFree $module): bool
+/**
+ * @param GtmConsentModeBannerFree $module
+ * @return bool
+ */
+function upgradeModule103(GtmConsentModeBannerFree $module)
 {
     return $module->resetHooks();
 }

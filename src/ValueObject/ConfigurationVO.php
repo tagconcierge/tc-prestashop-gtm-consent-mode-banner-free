@@ -7,73 +7,73 @@ use Configuration as PrestaShopConfiguration;
 class ConfigurationVO
 {
     /** @var string */
-    public const STATE = 'TC_GTMCMB_STATE';
+    const STATE = 'TC_GTMCMB_STATE';
 
     /** @var string */
-    public const INSTALLATION_DATE = 'TC_GTMCMB_INSTALLATION_DATE';
+    const INSTALLATION_DATE = 'TC_GTMCMB_INSTALLATION_DATE';
 
     /** @var string */
-    public const ENABLED_ONLY_FOR_ADMIN = 'TC_GTMCMB_ENABLED_ONLY_FOR_ADMIN';
+    const ENABLED_ONLY_FOR_ADMIN = 'TC_GTMCMB_ENABLED_ONLY_FOR_ADMIN';
 
     /** @var string */
-    public const ENABLED_ONLY_DEFAULT_CONSENT_MODE = 'TC_GTMCMB_ENABLED_ONLY_DEFAULT_CONSENT_MODE';
+    const ENABLED_ONLY_DEFAULT_CONSENT_MODE = 'TC_GTMCMB_ENABLED_ONLY_DEFAULT_CONSENT_MODE';
 
     /** @var string */
-    public const DISPLAY_MODE = 'TC_GTMCMB_DISPLAY_MODE';
+    const DISPLAY_MODE = 'TC_GTMCMB_DISPLAY_MODE';
 
     /** @var string */
-    public const WALL = 'TC_GTMCMB_WALL';
+    const WALL = 'TC_GTMCMB_WALL';
 
     /** @var string */
-    public const THEME = 'TC_GTMCMB_THEME';
+    const THEME = 'TC_GTMCMB_THEME';
 
     /** @var string */
-    public const MAIN_MODAL_TITLE = 'TC_GTMCMB_MAIN_MODAL_TITLE';
+    const MAIN_MODAL_TITLE = 'TC_GTMCMB_MAIN_MODAL_TITLE';
 
     /** @var string */
-    public const MAIN_MODAL_CONTENT = 'TC_GTMCMB_MAIN_MODAL_CONTENT';
+    const MAIN_MODAL_CONTENT = 'TC_GTMCMB_MAIN_MODAL_CONTENT';
 
     /** @var string */
-    public const MAIN_MODAL_ACCEPT_BUTTON = 'TC_GTMCMB_MAIN_MODAL_ACCEPT_BUTTON';
+    const MAIN_MODAL_ACCEPT_BUTTON = 'TC_GTMCMB_MAIN_MODAL_ACCEPT_BUTTON';
 
     /** @var string */
-    public const MAIN_MODAL_OPEN_SETTINGS_BUTTON = 'TC_GTMCMB_MAIN_MODAL_OPEN_SETTINGS_BUTTON';
+    const MAIN_MODAL_OPEN_SETTINGS_BUTTON = 'TC_GTMCMB_MAIN_MODAL_OPEN_SETTINGS_BUTTON';
 
     /** @var string */
-    public const MAIN_MODAL_REJECT_BUTTON = 'TC_GTMCMB_MAIN_MODAL_REJECT_BUTTON';
+    const MAIN_MODAL_REJECT_BUTTON = 'TC_GTMCMB_MAIN_MODAL_REJECT_BUTTON';
 
     /** @var string */
-    public const SETTINGS_MODAL_TITLE = 'TC_GTMCMB_SETTINGS_MODAL_TITLE';
+    const SETTINGS_MODAL_TITLE = 'TC_GTMCMB_SETTINGS_MODAL_TITLE';
 
     /** @var string */
-    public const SETTINGS_MODAL_CONTENT = 'TC_GTMCMB_SETTINGS_MODAL_CONTENT';
+    const SETTINGS_MODAL_CONTENT = 'TC_GTMCMB_SETTINGS_MODAL_CONTENT';
 
     /** @var string */
-    public const SETTINGS_MODAL_SAVE_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_SAVE_BUTTON';
+    const SETTINGS_MODAL_SAVE_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_SAVE_BUTTON';
 
     /** @var string */
-    public const SETTINGS_MODAL_CLOSE_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_CLOSE_BUTTON';
+    const SETTINGS_MODAL_CLOSE_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_CLOSE_BUTTON';
 
     /** @var string */
-    public const SETTINGS_MODAL_REJECT_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_REJECT_BUTTON';
+    const SETTINGS_MODAL_REJECT_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_REJECT_BUTTON';
 
     /** @var string */
-    public const SETTINGS_MODAL_ACCEPT_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_ACCEPT_BUTTON';
+    const SETTINGS_MODAL_ACCEPT_BUTTON = 'TC_GTMCMB_SETTINGS_MODAL_ACCEPT_BUTTON';
 
     /** @var string */
-    public const CUSTOM_CSS = 'TC_GTMCMB_CUSTOM_CSS';
+    const CUSTOM_CSS = 'TC_GTMCMB_CUSTOM_CSS';
 
     /** @var string */
-    public const GTM_CONTAINER_SNIPPET_HEAD = 'TC_GTMCMB_GTM_CONTAINER_SNIPPET_HEAD';
+    const GTM_CONTAINER_SNIPPET_HEAD = 'TC_GTMCMB_GTM_CONTAINER_SNIPPET_HEAD';
 
     /** @var string */
-    public const GTM_CONTAINER_SNIPPET_BODY = 'TC_GTMCMB_GTM_CONTAINER_SNIPPET_BODY';
+    const GTM_CONTAINER_SNIPPET_BODY = 'TC_GTMCMB_GTM_CONTAINER_SNIPPET_BODY';
 
     /** @var string */
-    public const CONSENT_TYPES = 'TC_GTMCMB_CONSENT_TYPES';
+    const CONSENT_TYPES = 'TC_GTMCMB_CONSENT_TYPES';
 
     /** @var string */
-    public const COOKIE_REMOVAL_ON_DENIAL = 'TC_GTMCMB_COOKIE_REMOVAL_ON_DENIAL';
+    const COOKIE_REMOVAL_ON_DENIAL = 'TC_GTMCMB_COOKIE_REMOVAL_ON_DENIAL';
 
     private static $proFields = [
         self::COOKIE_REMOVAL_ON_DENIAL
@@ -434,17 +434,27 @@ You can enable or disable some or all of these cookies, but disabling some of th
         ]
     ];
 
-    public static function getFields(): array
+    /**
+     * @return array
+     */
+    public static function getFields()
     {
         return self::$fields;
     }
 
-    public static function getForms(): array
+    /**
+     * @return array[]
+     */
+    public static function getForms()
     {
         return self::$forms;
     }
 
-    public static function getFormFields(string $form): array
+    /**
+     * @param string $form
+     * @return array
+     */
+    public static function getFormFields($form)
     {
         $fields = [];
         foreach (self::$forms[$form]['fields'] as $fieldName) {
@@ -454,17 +464,29 @@ You can enable or disable some or all of these cookies, but disabling some of th
         return $fields;
     }
 
-    public static function isHtmlField(string $fieldName): bool
+    /**
+     * @param string $fieldName
+     * @return bool
+     */
+    public static function isHtmlField($fieldName)
     {
         return in_array($fieldName, self::$htmlFields, true);
     }
 
-    public static function getDefaultValue(string $fieldName)
+    /**
+     * @param string $fieldName
+     * @return string|array|null
+     */
+    public static function getDefaultValue($fieldName)
     {
-        return self::$defaultValues[$fieldName] ?? null;
+        return isset(self::$defaultValues[$fieldName]) ? self::$defaultValues[$fieldName] : null;
     }
 
-    public static function isProFeature(string $fieldName): bool
+    /**
+     * @param string $fieldName
+     * @return bool
+     */
+    public static function isProFeature($fieldName)
     {
         return true === in_array($fieldName, self::$proFields);
     }

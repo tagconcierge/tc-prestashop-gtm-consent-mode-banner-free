@@ -21,7 +21,11 @@ class HookProvider
         $this->module = $module;
     }
 
-    public function provide(string $hookClass): AbstractHook
+    /**
+     * @param string $hookClass
+     * @return AbstractHook
+     */
+    public function provide($hookClass)
     {
         if (false === isset($this->hooks[$hookClass])) {
             $this->hooks[$hookClass] = new $hookClass($this->module);

@@ -8,7 +8,11 @@ use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
 class Installer
 {
-    public function install(TagConciergeModuleInterface $module): bool
+    /**
+     * @param TagConciergeModuleInterface $module
+     * @return bool
+     */
+    public function install(TagConciergeModuleInterface $module)
     {
         foreach (ConfigurationVO::getFields() as $key => $value) {
             $defaultValue = ConfigurationVO::getDefaultValue($key);
@@ -21,7 +25,7 @@ class Installer
                 continue;
             }
 
-            $boolean = $value['boolean'] ?? false;
+            $boolean = isset($value['boolean']) ? $value['boolean'] : false;
             PrestaShopConfiguration::updateValue($key, $boolean ? false : '');
         }
 
@@ -32,7 +36,11 @@ class Installer
         return $this->registerHooks($module);
     }
 
-    public function uninstall(TagConciergeModuleInterface $module): bool
+    /**
+     * @param TagConciergeModuleInterface $module
+     * @return bool
+     */
+    public function uninstall(TagConciergeModuleInterface $module)
     {
         foreach (array_keys(ConfigurationVO::getFields()) as $key) {
             if (ConfigurationVO::INSTALLATION_DATE === $key) {
@@ -44,12 +52,20 @@ class Installer
         return true;
     }
 
-    public function resetHooks(TagConciergeModuleInterface $module): bool
+    /**
+     * @param TagConciergeModuleInterface $module
+     * @return bool
+     */
+    public function resetHooks(TagConciergeModuleInterface $module)
     {
         return $this->unregisterHooks($module) && $this->registerHooks($module);
     }
 
-    private function registerHooks(TagConciergeModuleInterface $module): bool
+    /**
+     * @param TagConciergeModuleInterface $module
+     * @return bool
+     */
+    private function registerHooks(TagConciergeModuleInterface $module)
     {
         foreach ($module->getHooks() as $hook) {
             if (false === $module->registerHook($hook)) {
@@ -60,7 +76,11 @@ class Installer
         return true;
     }
 
-    private function unregisterHooks(TagConciergeModuleInterface $module): bool
+    /**
+     * @param TagConciergeModuleInterface $module
+     * @return bool
+     */
+    private function unregisterHooks(TagConciergeModuleInterface $module)
     {
         foreach ($module->getHooks() as $hook) {
             $module->unregisterHook($hook);

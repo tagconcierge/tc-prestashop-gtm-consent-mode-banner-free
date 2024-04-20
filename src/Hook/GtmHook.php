@@ -10,16 +10,22 @@ class GtmHook extends AbstractHook
     use HookTrait;
 
     /** @var array */
-    public const HOOKS = [
+    const HOOKS = [
         Hooks::DISPLAY_HEADER => [
             'loadGtmScript',
         ],
         Hooks::DISPLAY_AFTER_BODY_OPENING_TAG => [
             'loadGtmFrame',
         ],
+        Hooks::DISPLAY_BANNER => [
+            'loadGtmFrame',
+        ],
     ];
 
-    public function loadGtmScript(): string
+    /**
+     * @return string
+     */
+    public function loadGtmScript()
     {
         if (false === $this->isEnabled()) {
             return '';
@@ -28,7 +34,10 @@ class GtmHook extends AbstractHook
         return PrestaShopConfiguration::get(ConfigurationVO::GTM_CONTAINER_SNIPPET_HEAD);
     }
 
-    public function loadGtmFrame(): string
+    /**
+     * @return string
+     */
+    public function loadGtmFrame()
     {
         if (false === $this->isEnabled()) {
             return '';

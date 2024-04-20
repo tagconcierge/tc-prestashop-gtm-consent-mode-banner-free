@@ -10,13 +10,19 @@ class BannerScriptHook extends AbstractHook
     use HookTrait;
 
     /** @var array */
-    public const HOOKS = [
+    const HOOKS = [
         Hooks::DISPLAY_BEFORE_BODY_CLOSING_TAG => [
             'loadBannerScript',
         ],
+        Hooks::DISPLAY_FOOTER => [
+            'loadBannerScript'
+        ]
     ];
 
-    public function loadBannerScript(): string
+    /**
+     * @return string
+     */
+    public function loadBannerScript()
     {
         if (false === $this->isEnabled()) {
             return '';

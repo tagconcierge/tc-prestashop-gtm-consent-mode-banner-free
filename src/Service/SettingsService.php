@@ -15,7 +15,10 @@ class SettingsService
         $this->module = $module;
     }
 
-    public function getConsentTypes(): array
+    /**
+     * @return array[]
+     */
+    public function getConsentTypes()
     {
         $defaultConsentTypes = [
             [
@@ -46,7 +49,7 @@ class SettingsService
 
         try {
             $consentTypes = json_decode(PrestaShopConfiguration::get(ConfigurationVO::CONSENT_TYPES), true);
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
             $consentTypes = $defaultConsentTypes;
         }
 
@@ -65,7 +68,10 @@ class SettingsService
         return $consentTypes;
     }
 
-    public function getConsentTypesFields(): array
+    /**
+     * @return array[]
+     */
+    public function getConsentTypesFields()
     {
         return $this->getConsentTypes();
     }

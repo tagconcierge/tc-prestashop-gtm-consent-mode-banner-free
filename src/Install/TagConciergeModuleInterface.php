@@ -6,15 +6,34 @@ use TagConcierge\GtmConsentModeBannerFree\Service\SettingsService;
 
 interface TagConciergeModuleInterface
 {
-    public function render(string $templatePath): string;
+    /**
+     * @param string $templatePath
+     * @return string
+     */
+    public function render($templatePath);
 
-    public function getHooks(): array;
+    /**
+     * @return array
+     */
+    public function getHooks();
 
-    public function isPro(): bool;
+    /**
+     * @return bool
+     */
+    public function isPro();
 
-    public function getSettingsService(): SettingsService;
+    /**
+     * @return SettingsService
+     */
+    public function getSettingsService();
 
-    public function getNotificationKey(): string;
+    /**
+     * @return string
+     */
+    public function getNotificationKey();
 
-    public function getName(): string;
+    /**
+     * @return string
+     */
+    public function getName();
 }
