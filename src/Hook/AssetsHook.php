@@ -13,6 +13,15 @@ class AssetsHook extends AbstractHook
         ],
     ];
 
+    /** @var string */
+    protected $scriptUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/cb.min.js';
+
+    /** @var string */
+    protected $styleUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/styles/light.css';
+
+    /** @var string */
+    protected $origin = 'remote';
+
     /**
      * @return void
      */
@@ -23,27 +32,25 @@ class AssetsHook extends AbstractHook
         }
 
         $controller = $this->getContext()->controller;
-        $scriptUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/cb.min.js';
-        $styleUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/styles/light.css';
 
         if (method_exists($controller, 'registerJavascript')) {
             $controller->registerJavascript(
                 'tag-concierge-consent-mode-banner',
-                $scriptUrl,
-                ['server' => 'remote', 'position' => 'head', 'priority' => 20]
+                $this->scriptUrl,
+                ['server' => $this->origin, 'position' => 'head', 'priority' => 20]
             );
         } else {
-            $controller->addJS($scriptUrl);
+            $controller->addJS($this->scriptUrl);
         }
 
         if (method_exists($controller, 'registerJavascript')) {
             $controller->registerStylesheet(
                 'tag-concierge-consent-mode-banner',
-                $styleUrl,
-                ['server' => 'remote', 'position' => 'head', 'priority' => 20]
+                $this->styleUrl,
+                ['server' => $this->origin, 'position' => 'head', 'priority' => 20]
             );
         } else {
-            $controller->addCSS($styleUrl);
+            $controller->addCSS($this->styleUrl);
         }
     }
 }
