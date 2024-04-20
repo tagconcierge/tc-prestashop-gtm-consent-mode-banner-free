@@ -19,15 +19,9 @@ class Hooks
     /** @var string */
     const DISPLAY_ADMIN_AFTER_HEADER = 'displayAdminAfterHeader';
 
-    /**
-     * PrestaShop version < 1.7
-     * @var string
-     */
+    /** @var string */
     const DISPLAY_FOOTER = 'displayFooter';
 
-    /**
-     * PrestaShop version < 1.7
-     * @var string
-     */
+    /** @var string */
     const DISPLAY_BANNER = 'displayBanner';
 }

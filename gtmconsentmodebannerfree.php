@@ -31,8 +31,8 @@ class GtmConsentModeBannerFree extends Module implements TagConcierge\GtmConsent
     {
         $this->name = 'gtmconsentmodebannerfree';
         $this->author = 'Tag Concierge';
-        $this->version = '1.0.3';
-        $this->ps_versions_compliancy = ['min' => '1.6.1.0', 'max' => _PS_VERSION_];
+        $this->version = '1.1.0';
+        $this->ps_versions_compliancy = ['min' => '1.6.0.0', 'max' => _PS_VERSION_];
         $this->bootstrap = true;
         $this->tab = 'advertising_marketing';
 

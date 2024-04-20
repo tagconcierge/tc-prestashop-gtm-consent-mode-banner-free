@@ -15,12 +15,36 @@ class GtmHook extends AbstractHook
             'loadGtmScript',
         ],
         Hooks::DISPLAY_AFTER_BODY_OPENING_TAG => [
-            'loadGtmFrame',
+            'displayAfterBodyOpeningTag',
         ],
         Hooks::DISPLAY_BANNER => [
-            'loadGtmFrame',
+            'displayBanner',
         ],
     ];
+
+    /**
+     * @return string
+     */
+    public function displayAfterBodyOpeningTag()
+    {
+        if (1.7 > _PS_VERSION_) {
+            return '';
+        }
+
+        return $this->loadGtmFrame();
+    }
+
+    /**
+     * @return string
+     */
+    public function displayBanner()
+    {
+        if (1.7 <= _PS_VERSION_) {
+            return '';
+        }
+
+        return $this->loadGtmFrame();
+    }
 
     /**
      * @return string

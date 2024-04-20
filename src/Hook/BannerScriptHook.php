@@ -12,12 +12,36 @@ class BannerScriptHook extends AbstractHook
     /** @var array */
     const HOOKS = [
         Hooks::DISPLAY_BEFORE_BODY_CLOSING_TAG => [
-            'loadBannerScript',
+            'beforeBodyClosingTag',
         ],
         Hooks::DISPLAY_FOOTER => [
-            'loadBannerScript'
+            'displayFooter'
         ]
     ];
+
+    /**
+     * @return string
+     */
+    public function beforeBodyClosingTag()
+    {
+        if (1.7 > _PS_VERSION_) {
+            return '';
+        }
+
+        return $this->loadBannerScript();
+    }
+
+    /**
+     * @return string
+     */
+    public function displayFooter()
+    {
+        if (1.7 <= _PS_VERSION_) {
+            return '';
+        }
+
+        return $this->loadBannerScript();
+    }
 
     /**
      * @return string
