@@ -7,28 +7,50 @@ class AssetsHook extends AbstractHook
     use HookTrait;
 
     /** @var array */
-    public const HOOKS = [
+    const HOOKS = [
         Hooks::ACTION_FRONT_CONTROLLER_SET_MEDIA => [
             'loadAssets',
         ],
     ];
 
-    public function loadAssets(): void
+    /** @var string */
+    protected $scriptUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/cb.min.js';
+
+    /** @var string */
+    protected $styleUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/styles/light.css';
+
+    /** @var string */
+    protected $origin = 'remote';
+
+    /**
+     * @return void
+     */
+    public function loadAssets()
     {
         if (false === $this->isEnabled()) {
             return;
         }
 
-        $this->getContext()->controller->registerJavascript(
-            'tag-concierge-consent-mode-banner',
-            'https://public-assets.tagconcierge.com/consent-banner/1.1.0/cb.min.js',
-            ['server' => 'remote', 'position' => 'head', 'priority' => 20]
-        );
+        $controller = $this->getContext()->controller;
 
-        $this->getContext()->controller->registerStylesheet(
-            'tag-concierge-consent-mode-banner',
-            'https://public-assets.tagconcierge.com/consent-banner/1.1.0/styles/light.css',
-            ['server' => 'remote', 'position' => 'head', 'priority' => 20]
-        );
+        if (method_exists($controller, 'registerJavascript')) {
+            $controller->registerJavascript(
+                'tag-concierge-consent-mode-banner',
+                $this->scriptUrl,
+                ['server' => $this->origin, 'position' => 'head', 'priority' => 20]
+            );
+        } else {
+            $controller->addJS($this->scriptUrl);
+        }
+
+        if (method_exists($controller, 'registerJavascript')) {
+            $controller->registerStylesheet(
+                'tag-concierge-consent-mode-banner',
+                $this->styleUrl,
+                ['server' => $this->origin, 'position' => 'head', 'priority' => 20]
+            );
+        } else {
+            $controller->addCSS($this->styleUrl);
+        }
     }
 }

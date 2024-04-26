@@ -8,7 +8,7 @@ if (!defined('_PS_VERSION_')) {
  * @param GtmConsentModeBannerFree $module
  * @return bool
  */
-function upgradeModule103(GtmConsentModeBannerFree $module)
+function upgradeModule110(GtmConsentModeBannerFree $module)
 {
     return $module->resetHooks();
 }

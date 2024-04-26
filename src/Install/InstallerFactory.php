@@ -4,7 +4,10 @@ namespace TagConcierge\GtmConsentModeBannerFree\Install;
 
 class InstallerFactory
 {
-    public static function create(): Installer
+    /**
+     * @return Installer
+     */
+    public static function create()
     {
         return new Installer();
     }

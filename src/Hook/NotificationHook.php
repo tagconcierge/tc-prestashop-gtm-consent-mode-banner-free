@@ -5,19 +5,21 @@ namespace TagConcierge\GtmConsentModeBannerFree\Hook;
 use Configuration as PrestaShopConfiguration;
 use DateTime;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
-use Throwable;
 use Tools;
 
 class NotificationHook extends AbstractHook
 {
     /** @var array */
-    public const HOOKS = [
+    const HOOKS = [
         Hooks::DISPLAY_ADMIN_AFTER_HEADER => [
             'notificationBox'
         ]
     ];
 
-    public function notificationBox(): string
+    /**
+     * @return string
+     */
+    public function notificationBox()
     {
         $installationTimestamp = (int) PrestaShopConfiguration::get(ConfigurationVO::INSTALLATION_DATE);
         $currentTimestamp = (new DateTime())->getTimestamp();
@@ -43,7 +45,7 @@ class NotificationHook extends AbstractHook
             if ('AdminModulesController' === $controllerClass && Tools::getValue('configure') !== $this->module->getName()) {
                 return '';
             }
-        } catch (Throwable $e) {
+        } catch (\Exception $e) {
             return '';
         }
 

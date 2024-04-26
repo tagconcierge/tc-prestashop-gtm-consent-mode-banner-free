@@ -7,7 +7,7 @@ use TagConcierge\GtmConsentModeBannerFree\Install\TagConciergeModuleInterface;
 
 abstract class AbstractHook
 {
-    public const HOOKS = [];
+    const HOOKS = [];
 
     /** @var TagConciergeModuleInterface */
     protected $module;
@@ -17,12 +17,18 @@ abstract class AbstractHook
         $this->module = $module;
     }
 
-    public function getHooks(): array
+    /**
+     * @return array
+     */
+    public function getHooks()
     {
         return static::HOOKS;
     }
 
-    protected function getContext(): PrestaShopContext
+    /**
+     * @return PrestaShopContext
+     */
+    protected function getContext()
     {
         return PrestaShopContext::getContext();
     }

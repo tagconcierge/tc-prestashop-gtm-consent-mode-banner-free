@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose run -T --rm php-cli <<INPUT
+docker-compose run -T --rm php-cli56 <<INPUT
 rm vendor -Rf
 composer install --no-dev --optimize-autoloader
 INPUT
@@ -20,7 +20,7 @@ cp logo.png $RELEASE_DIR/gtmconsentmodebannerfree/logo.png
 cp gtmconsentmodebannerfree.php $RELEASE_DIR/gtmconsentmodebannerfree/gtmconsentmodebannerfree.php
 cp LICENSE.md $RELEASE_DIR/gtmconsentmodebannerfree/LICENSE.md
 
-docker-compose run -T --rm php-cli <<INPUT
+docker-compose run -T --rm php-cli71 <<INPUT
 find $RELEASE_DIR/gtmconsentmodebannerfree/src -type f -name '*.php' | xargs sed -i 's/^namespace \(.*\);/namespace \1;\n\nif (!defined('\''_PS_VERSION_'\'')) {\n    exit;\n}/g'
 touch $RELEASE_DIR/gtmconsentmodebannerfree/.htaccess
 composer install

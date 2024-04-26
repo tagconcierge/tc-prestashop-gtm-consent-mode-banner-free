@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     prestashop:
-        image: prestashop/prestashop:8.0.3
+        image: prestashop/prestashop:8.1.5
         links:
             - mariadb
         ports:
@@ -28,8 +28,14 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: prestashop
-    php-cli:
+    php-cli71:
         image: mfrankiewicz/php:7.1-cli
+        working_dir: /var/www
+        entrypoint: bash
+        volumes:
+            - ./:/var/www
+    php-cli56:
+        image: mfrankiewicz/php:5.6-cli
         working_dir: /var/www
         entrypoint: bash
         volumes:
