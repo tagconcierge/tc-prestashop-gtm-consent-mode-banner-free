@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2024-04-26
+
+### Added
+* required PrestaShop and PHP version downgrade to PrestaShop 1.6+ (from 1.7.1+) and PHP 5.6+ (from 7.4+)
+* ad_user_data and ad_personalization consents
+
+### Changed
+
+### Fixed
+
 ## [1.0.3] - 2024-04-19
 
 ### Added
