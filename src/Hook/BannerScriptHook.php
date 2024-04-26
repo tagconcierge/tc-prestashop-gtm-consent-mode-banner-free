@@ -101,6 +101,7 @@ class BannerScriptHook extends AbstractHook
         ];
 
         $this->getContext()->smarty->assign('tc_gtmcb_config', $config);
+        $this->getContext()->smarty->assign('tc_gtmcb_cookie_removal_on_denial', PrestaShopConfiguration::get(ConfigurationVO::COOKIE_REMOVAL_ON_DENIAL));
 
         return $this->module->render('hooks/banner_script/banner_script.tpl');
     }
