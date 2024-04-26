@@ -23,7 +23,10 @@ trait ModuleTrait
      */
     private $settingsService;
 
-    private function init(): void
+    /**
+     * @return void
+     */
+    private function init()
     {
         @define('TC_GTMCMB_VERSION', $this->version);
 
@@ -32,7 +35,10 @@ trait ModuleTrait
         $this->setupHooks();
     }
 
-    public function install(): bool
+    /**
+     * @return bool
+     */
+    public function install()
     {
         if (false === parent::install()) {
             return false;
@@ -43,7 +49,10 @@ trait ModuleTrait
         return $installer->install($this);
     }
 
-    public function uninstall(): bool
+    /**
+     * @return bool
+     */
+    public function uninstall()
     {
         if (false === parent::uninstall()) {
             return false;
@@ -55,9 +64,19 @@ trait ModuleTrait
     }
 
     /**
-     * @throws \SmartyException
+     * @return bool
      */
-    public function getContent(): string
+    public function resetHooks()
+    {
+        $installer = InstallerFactory::create();
+
+        return $installer->resetHooks($this);
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
     {
         $this->context->smarty->assign('module_dir', $this->_path);
         $this->context->smarty->assign('plugin_version', $this->version);
@@ -146,7 +165,10 @@ trait ModuleTrait
         return $output . $this->getConsentTypesForm();
     }
 
-    protected function getConsentTypesForm(): string
+    /**
+     * @return string
+     */
+    protected function getConsentTypesForm()
     {
         $this->context->smarty->assign('consent_types', $this->settingsService->getConsentTypesFields());
         $this->context->smarty->assign('form_action_url', $this->context->link->getAdminLink('AdminModules', true)
@@ -155,17 +177,26 @@ trait ModuleTrait
         return $this->render('admin/consent_types_form.tpl');
     }
 
-    public function getHooks(): array
+    /**
+     * @return array
+     */
+    public function getHooks()
     {
         return array_keys($this->hooks);
     }
 
-    private function isModuleActive(): bool
+    /**
+     * @return bool
+     */
+    private function isModuleActive()
     {
         return '1' === PrestaShopConfiguration::get(ConfigurationVO::STATE);
     }
 
-    private function setupHooks(): void
+    /**
+     * @return void
+     */
+    private function setupHooks()
     {
         foreach (self::HOOKS as $hookClass) {
             foreach ($hookClass::HOOKS as $hookName => $callbacks) {
@@ -174,12 +205,19 @@ trait ModuleTrait
         }
     }
 
-    private function getInfoBox(): string
+    /**
+     * @return string
+     */
+    private function getInfoBox()
     {
         return $this->render('admin/info_box.tpl');
     }
 
-    public function render(string $templatePath): string
+    /**
+     * @param string $templatePath
+     * @return string
+     */
+    public function render($templatePath)
     {
         $path = sprintf('views/templates/%s', $templatePath);
         $templateExists = file_exists(sprintf('%s/views/templates/%s', dirname(static::MODULE_FILE), $templatePath));
@@ -194,12 +232,20 @@ trait ModuleTrait
         );
     }
 
-    public function getSettingsService(): SettingsService
+    /**
+     * @return SettingsService
+     */
+    public function getSettingsService()
     {
         return $this->settingsService;
     }
 
-    public function __call(string $name, array $arguments)
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return string|null
+     */
+    public function __call($name, array $arguments)
     {
         try {
             $hookName = null;
@@ -233,7 +279,7 @@ trait ModuleTrait
             if (false === empty($result)) {
                 return $result;
             }
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
             \PrestaShopLogger::addLog(
                 sprintf(
                     '%s: %s',

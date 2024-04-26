@@ -8,7 +8,10 @@ use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
 trait HookTrait
 {
-    protected function isEnabled(): bool
+    /**
+     * @return bool
+     */
+    protected function isEnabled()
     {
         $isEnabledOnlyForAdmins = (bool) PrestaShopConfiguration::get(ConfigurationVO::ENABLED_ONLY_FOR_ADMIN);
 

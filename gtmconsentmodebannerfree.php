@@ -1,30 +1,24 @@
 <?php
 
-use Configuration as PrestaShopConfiguration;
-use TagConcierge\GtmConsentModeBannerFree\Hook;
-use TagConcierge\GtmConsentModeBannerFree\Install\ModuleTrait;
-use TagConcierge\GtmConsentModeBannerFree\Install\TagConciergeModuleInterface;
-use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
-use Tools as PrestaShopTools;
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 require_once _PS_MODULE_DIR_ . 'gtmconsentmodebannerfree/vendor/autoload.php';
 
-class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInterface
+class GtmConsentModeBannerFree extends Module implements TagConcierge\GtmConsentModeBannerFree\Install\TagConciergeModuleInterface
 {
-    use ModuleTrait;
+    use TagConcierge\GtmConsentModeBannerFree\Install\ModuleTrait;
+    use TagConcierge\GtmConsentModeBannerFree\Install\CompatibilityTrait;
 
     /** @var array */
     const HOOKS = [
-        Hook\NotificationHook::class,
-        Hook\AssetsHook::class,
-        Hook\InitialScriptHook::class,
-        Hook\BannerScriptHook::class,
-        Hook\GtmHook::class,
-        Hook\CustomCssHook::class,
+        TagConcierge\GtmConsentModeBannerFree\Hook\NotificationHook::class,
+        TagConcierge\GtmConsentModeBannerFree\Hook\AssetsHook::class,
+        TagConcierge\GtmConsentModeBannerFree\Hook\InitialScriptHook::class,
+        TagConcierge\GtmConsentModeBannerFree\Hook\BannerScriptHook::class,
+        TagConcierge\GtmConsentModeBannerFree\Hook\GtmHook::class,
+        TagConcierge\GtmConsentModeBannerFree\Hook\CustomCssHook::class,
     ];
 
     /** @var string */
@@ -37,8 +31,8 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
     {
         $this->name = 'gtmconsentmodebannerfree';
         $this->author = 'Tag Concierge';
-        $this->version = '1.0.2';
-        $this->ps_versions_compliancy = ['min' => '1.7.1.0', 'max' => _PS_VERSION_];
+        $this->version = '1.1.0';
+        $this->ps_versions_compliancy = ['min' => '1.6.0.0', 'max' => _PS_VERSION_];
         $this->bootstrap = true;
         $this->tab = 'advertising_marketing';
 
@@ -50,17 +44,17 @@ class GtmConsentModeBannerFree extends Module implements TagConciergeModuleInter
         $this->init();
     }
 
-    public function isPro(): bool
+    public function isPro()
     {
         return false;
     }
 
-    public function getNotificationKey(): string
+    public function getNotificationKey()
     {
         return '3f06f392-93f8-4928-9135-3cfd571c8de6';
     }
 
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }

@@ -3,6 +3,9 @@
     <div class="panel">
         <div class="panel-heading"><i class="icon-cogs"></i>Consent Types</div>
         <div id="fields-container" class="form-wrapper">
+            <p>
+                Additional consent types option allows grouping multiple consent types into one, for example: ad_storage, ad_personalization, ad_user_data, into a single consent for the user to accept - ad_storage.
+            </p>
             <div class="form-group">
                 <div class="col-lg-2">
                     <strong>Consent Type</strong>
@@ -43,7 +46,7 @@
                         </select>
                     </div>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control" disabled="disabled" />
+                        <input type="text" class="form-control" disabled="disabled" {if $consent_type.name eq 'ad_storage'} value="ad_user_data, ad_personalization"{/if} />
                     </div>
                     <div class="col-lg-1">
                         <a class="remove-consent-type" href="#" style=" pointer-events: none; color: gray">remove</a> <a href="https://tagconcierge.com/consent-mode-banner#prestashop" target="_blank">Upgrade to PRO</a>

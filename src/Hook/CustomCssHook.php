@@ -10,13 +10,16 @@ class CustomCssHook extends AbstractHook
     use HookTrait;
 
     /** @var array */
-    public const HOOKS = [
+    const HOOKS = [
         Hooks::DISPLAY_HEADER => [
             'loadCss',
         ],
     ];
 
-    public function loadCss(): string
+    /**
+     * @return string
+     */
+    public function loadCss()
     {
         if (false === $this->isEnabled()) {
             return '';
