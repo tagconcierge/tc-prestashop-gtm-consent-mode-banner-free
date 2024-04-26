@@ -45,6 +45,18 @@ class SettingsService
                 'description' => '',
                 'default' => '',
             ],
+            [
+                'name' => '',
+                'title' => '',
+                'description' => '',
+                'default' => '',
+            ],
+            [
+                'name' => '',
+                'title' => '',
+                'description' => '',
+                'default' => '',
+            ]
         ];
 
         try {
@@ -58,7 +70,7 @@ class SettingsService
         }
 
         if (false === $this->module->isPro()) {
-            $consentTypes = array_slice($consentTypes, 0, 4);
+            $consentTypes = array_slice($consentTypes, 0, 6);
 
             foreach ($consentTypes as &$consentType) {
                 $consentType['additional_consent_types'] = '';

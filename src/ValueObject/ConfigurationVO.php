@@ -426,6 +426,16 @@ You can enable or disable some or all of these cookies, but disabling some of th
                 'description' => 'Advertising cookies are used to deliver personalized ads to users based on the pages they have previously visited, and to analyze the effectiveness of the advertising campaign.',
                 'default' => 'denied',
             ], [
+                'name' => 'ad_user_data',
+                'title' => 'Advertising related user data',
+                'description' => 'Advertising related cookies are used to tailor advertisements specifically to you.',
+                'default' => 'denied',
+            ], [
+                'name' => 'ad_personalization',
+                'title' => 'Advertising personalization',
+                'description' => 'Advertising personalization cookies are used for remarketing, a form of targeted advertising that shows you ads based on your past browsing activity.',
+                'default' => 'denied',
+            ], [
                 'name' => 'functionality_storage',
                 'title' => 'Functional',
                 'description' => 'Functional cookies help perform certain functions, such as sharing site content on social media platforms, collecting feedback and other third-party functions.',
