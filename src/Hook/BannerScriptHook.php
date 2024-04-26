@@ -73,6 +73,10 @@ class BannerScriptHook extends AbstractHook
 
         $consentTypes = $this->module->getSettingsService()->getConsentTypes();
 
+        $consentTypes = array_filter($consentTypes, static function ($item) {
+            return false === empty($item['name']);
+        });
+
         $config = [
             'display' => [
                 'mode' => $settings[ConfigurationVO::DISPLAY_MODE],

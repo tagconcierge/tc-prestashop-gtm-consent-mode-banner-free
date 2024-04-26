@@ -70,7 +70,9 @@ class SettingsService
         }
 
         if (false === $this->module->isPro()) {
-            $consentTypes = array_slice($consentTypes, 0, 6);
+            $consentTypes = array_slice($consentTypes, 0, count(ConfigurationVO::getDefaultValue(ConfigurationVO::CONSENT_TYPES)));
+
+            $consentTypes = array_replace_recursive($defaultConsentTypes, $consentTypes);
 
             foreach ($consentTypes as &$consentType) {
                 $consentType['additional_consent_types'] = '';
