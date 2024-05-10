@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2024-05-10
+
+### Added
+
+### Changed
+
+### Fixed
+* checkbox field issue caused by PrestaShop jquery.uniform.js library
+
 ## [1.1.0] - 2024-04-26
 
 ### Added

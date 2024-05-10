@@ -21,5 +21,12 @@
     },
     config
   );
+
+  document.body.addEventListener('consent-banner.shown', () => {
+    document.querySelectorAll('input[type=\'checkbox\']').forEach((el) => {
+      el.classList.add('not_uniform');
+      el.classList.add('comparator');
+    })
+  });
 </script>
 {/literal}
