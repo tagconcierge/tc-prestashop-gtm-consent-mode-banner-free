@@ -11,7 +11,7 @@ trait CompatibilityTrait
      * @param $locale
      * @return mixed
      */
-    protected function trans($id, array $parameters = [], $domain = null, $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         $methodExists = 1 === version_compare(_PS_VERSION_, '1.7.1');
 

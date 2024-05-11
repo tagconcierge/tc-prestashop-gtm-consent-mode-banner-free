@@ -79,6 +79,12 @@ class SettingsService
             }
         }
 
+        foreach ($consentTypes as &$consentType) {
+            if (false === isset($consentType['additional_consent_types'])) {
+                $consentType['additional_consent_types'] = '';
+            }
+        }
+
         return $consentTypes;
     }
 
