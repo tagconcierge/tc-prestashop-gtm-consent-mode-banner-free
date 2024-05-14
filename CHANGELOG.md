@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 2024-05-14
+
+### Added
+
+### Changed
+
+### Fixed
+* fixed an issue related to asynchronous loading of the javascript library
+
 ## [1.1.1] - 2024-05-10
 
 ### Added
