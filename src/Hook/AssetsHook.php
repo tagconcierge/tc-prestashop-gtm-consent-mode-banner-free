@@ -14,10 +14,10 @@ class AssetsHook extends AbstractHook
     ];
 
     /** @var string */
-    protected $scriptUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/cb.min.js';
+    protected $scriptUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.2.0/cb.min.js';
 
     /** @var string */
-    protected $styleUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.1.0/styles/light.css';
+    protected $styleUrl = 'https://public-assets.tagconcierge.com/consent-banner/1.2.0/styles/light.css';
 
     /** @var string */
     protected $origin = 'remote';
