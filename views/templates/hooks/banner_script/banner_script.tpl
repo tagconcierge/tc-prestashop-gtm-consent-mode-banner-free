@@ -1,8 +1,7 @@
 {literal}
 <script type="text/javascript" data-tag-concierge-gtm-consent-mode-banner-scripts>
-  var config = {/literal}{$tc_gtmcb_config|json_encode nofilter}{literal};
-
-  document.body.addEventListener('consent-banner.ready', () => {
+  const config = {/literal}{$tc_gtmcb_config|json_encode nofilter}{literal};
+  const initFunction = () => {
     cookiesBannerJs(
       function() {
         try {
@@ -22,7 +21,14 @@
       },
       config
     );
-  });
+  };
+
+  if (undefined === window.cookiesBannerJs) {
+    window.addEventListener('consent-banner.ready', initFunction);
+  } else {
+    initFunction();
+  }
+
 
   document.body.addEventListener('consent-banner.shown', () => {
     document.querySelectorAll('input[type=\'checkbox\']').forEach((el) => {
