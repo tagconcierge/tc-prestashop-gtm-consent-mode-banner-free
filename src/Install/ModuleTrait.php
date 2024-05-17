@@ -78,6 +78,7 @@ trait ModuleTrait
      */
     public function getContent()
     {
+        $isSubmit = false;
         $this->context->smarty->assign('module_dir', $this->_path);
         $this->context->smarty->assign('plugin_version', $this->version);
 
@@ -89,6 +90,8 @@ trait ModuleTrait
                 json_encode(PrestaShopTools::getValue(ConfigurationVO::CONSENT_TYPES)),
                 ConfigurationVO::isHtmlField(ConfigurationVO::CONSENT_TYPES)
             );
+
+            $isSubmit = true;
         }
 
         foreach (array_keys(ConfigurationVO::getForms()) as $formName) {
@@ -109,7 +112,13 @@ trait ModuleTrait
                 $output .= $this->displayConfirmation('Settings updated.');
                 // restore original value of PS_USE_HTMLPURIFIER
                 PrestaShopConfiguration::updateValue('PS_USE_HTMLPURIFIER', $usePurifier);
+
+                $isSubmit = true;
             }
+        }
+
+        if (true === $isSubmit) {
+            $this->settingsService->postSettingsSave();
         }
 
         foreach (ConfigurationVO::getForms() as $formName => $formDetails) {
