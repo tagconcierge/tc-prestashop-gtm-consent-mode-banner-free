@@ -82,7 +82,7 @@ trait ModuleTrait
         $this->context->smarty->assign('module_dir', $this->_path);
         $this->context->smarty->assign('plugin_version', $this->version);
 
-        $output = false === $this->isPro() ? $this->getInfoBox() : '';
+        $output = $this->getInfoBox();
 
         if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_consent_types')) {
             PrestaShopConfiguration::updateValue(
