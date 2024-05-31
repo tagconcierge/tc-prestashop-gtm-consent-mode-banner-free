@@ -28,7 +28,9 @@ trait ModuleTrait
      */
     private function init()
     {
-        @define('TC_GTMCMB_VERSION', $this->version);
+        if (false === defined('TC_GTMCMB_VERSION')) {
+            define('TC_GTMCMB_VERSION', $this->version);
+        }
 
         $this->hookProvider = new HookProvider($this);
         $this->settingsService = new SettingsService($this);
@@ -78,10 +80,11 @@ trait ModuleTrait
      */
     public function getContent()
     {
+        $isSubmit = false;
         $this->context->smarty->assign('module_dir', $this->_path);
         $this->context->smarty->assign('plugin_version', $this->version);
 
-        $output = false === $this->isPro() ? $this->getInfoBox() : '';
+        $output = $this->getInfoBox();
 
         if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_consent_types')) {
             PrestaShopConfiguration::updateValue(
@@ -89,6 +92,8 @@ trait ModuleTrait
                 json_encode(PrestaShopTools::getValue(ConfigurationVO::CONSENT_TYPES)),
                 ConfigurationVO::isHtmlField(ConfigurationVO::CONSENT_TYPES)
             );
+
+            $isSubmit = true;
         }
 
         foreach (array_keys(ConfigurationVO::getForms()) as $formName) {
@@ -109,7 +114,13 @@ trait ModuleTrait
                 $output .= $this->displayConfirmation('Settings updated.');
                 // restore original value of PS_USE_HTMLPURIFIER
                 PrestaShopConfiguration::updateValue('PS_USE_HTMLPURIFIER', $usePurifier);
+
+                $isSubmit = true;
             }
+        }
+
+        if (true === $isSubmit) {
+            $this->settingsService->postSettingsSave();
         }
 
         foreach (ConfigurationVO::getForms() as $formName => $formDetails) {
