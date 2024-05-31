@@ -56,7 +56,7 @@ class SettingsService
                 'title' => '',
                 'description' => '',
                 'default' => '',
-            ]
+            ],
         ];
 
         try {
@@ -117,8 +117,9 @@ class SettingsService
             ConfigurationVO::SETTINGS_MODAL_CLOSE_BUTTON,
             ConfigurationVO::SETTINGS_MODAL_REJECT_BUTTON,
             ConfigurationVO::SETTINGS_MODAL_ACCEPT_BUTTON,
-        ], static function($agg, $setName) {
+        ], static function ($agg, $setName) {
             $agg[$setName] = PrestaShopConfiguration::get($setName);
+
             return $agg;
         }, []);
 
@@ -140,8 +141,8 @@ class SettingsService
                 'buttons' => [
                     'accept' => $settings[ConfigurationVO::MAIN_MODAL_ACCEPT_BUTTON],
                     'settings' => $settings[ConfigurationVO::MAIN_MODAL_OPEN_SETTINGS_BUTTON],
-                    'reject' => $settings[ConfigurationVO::MAIN_MODAL_REJECT_BUTTON]
-                ]
+                    'reject' => $settings[ConfigurationVO::MAIN_MODAL_REJECT_BUTTON],
+                ],
             ],
             'settings' => [
                 'title' => $settings[ConfigurationVO::SETTINGS_MODAL_TITLE],
@@ -150,9 +151,9 @@ class SettingsService
                     'save' => $settings[ConfigurationVO::SETTINGS_MODAL_SAVE_BUTTON],
                     'close' => $settings[ConfigurationVO::SETTINGS_MODAL_CLOSE_BUTTON],
                     'reject' => $settings[ConfigurationVO::SETTINGS_MODAL_REJECT_BUTTON],
-                    'accept' => $settings[ConfigurationVO::SETTINGS_MODAL_ACCEPT_BUTTON]
-                ]
-            ]
+                    'accept' => $settings[ConfigurationVO::SETTINGS_MODAL_ACCEPT_BUTTON],
+                ],
+            ],
         ];
     }
 }

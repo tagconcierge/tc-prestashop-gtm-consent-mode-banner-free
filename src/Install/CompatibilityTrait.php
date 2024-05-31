@@ -9,6 +9,7 @@ trait CompatibilityTrait
      * @param array $parameters
      * @param $domain
      * @param $locale
+     *
      * @return mixed
      */
     protected function trans($id, array $parameters = [], $domain = null, $locale = null)

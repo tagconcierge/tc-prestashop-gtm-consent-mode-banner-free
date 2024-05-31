@@ -24,7 +24,7 @@ class InitialScriptHook extends AbstractHook
 
         $consentTypes = $this->module->getSettingsService()->getConsentTypes();
 
-        $consentTypes = array_reduce($consentTypes, static function($agg, $type) {
+        $consentTypes = array_reduce($consentTypes, static function ($agg, $type) {
             if ('' === $type['name']) {
                 return $agg;
             }
@@ -35,6 +35,7 @@ class InitialScriptHook extends AbstractHook
                 }
             }
             $agg[$type['name']] = $type['default'] === 'required' ? 'granted' : $type['default'];
+
             return $agg;
         }, []);
 

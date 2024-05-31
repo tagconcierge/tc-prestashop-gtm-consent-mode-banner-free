@@ -3,9 +3,9 @@
 namespace TagConcierge\GtmConsentModeBannerFree\Install;
 
 use Configuration as PrestaShopConfiguration;
+use TagConcierge\GtmConsentModeBannerFree\Hook\HookProvider;
 use TagConcierge\GtmConsentModeBannerFree\Service\SettingsService;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
-use TagConcierge\GtmConsentModeBannerFree\Hook\HookProvider;
 use Tools as PrestaShopTools;
 
 trait ModuleTrait
@@ -97,7 +97,7 @@ trait ModuleTrait
         }
 
         foreach (array_keys(ConfigurationVO::getForms()) as $formName) {
-            if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_'.$formName)) {
+            if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_' . $formName)) {
                 // get actual value of PS_USE_HTMLPURIFIER
                 $usePurifier = PrestaShopConfiguration::get('PS_USE_HTMLPURIFIER');
                 // disable it to allow store gtm snippets in configuration
@@ -133,7 +133,7 @@ trait ModuleTrait
             $helper->allow_employee_form_lang = PrestaShopConfiguration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
 
             $helper->identifier = $this->identifier;
-            $helper->submit_action = 'tc_gtmcmb_submit_'.$formName;
+            $helper->submit_action = 'tc_gtmcmb_submit_' . $formName;
             $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
                 . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
             $helper->token = PrestaShopTools::getAdminTokenLite('AdminModules');
@@ -226,6 +226,7 @@ trait ModuleTrait
 
     /**
      * @param string $templatePath
+     *
      * @return string
      */
     public function render($templatePath)
@@ -254,6 +255,7 @@ trait ModuleTrait
     /**
      * @param string $name
      * @param array $arguments
+     *
      * @return string|null
      */
     public function __call($name, array $arguments)

@@ -15,8 +15,8 @@ class BannerScriptHook extends AbstractHook
             'beforeBodyClosingTag',
         ],
         Hooks::DISPLAY_FOOTER => [
-            'displayFooter'
-        ]
+            'displayFooter',
+        ],
     ];
 
     /**

@@ -12,8 +12,8 @@ class NotificationHook extends AbstractHook
     /** @var array */
     const HOOKS = [
         Hooks::DISPLAY_ADMIN_AFTER_HEADER => [
-            'notificationBox'
-        ]
+            'notificationBox',
+        ],
     ];
 
     /**
@@ -24,8 +24,7 @@ class NotificationHook extends AbstractHook
         $installationTimestamp = (int) PrestaShopConfiguration::get(ConfigurationVO::INSTALLATION_DATE);
         $currentTimestamp = (new DateTime())->getTimestamp();
 
-
-        if ($installationTimestamp + 7*24*60*60 > $currentTimestamp) {
+        if ($installationTimestamp + 7 * 24 * 60 * 60 > $currentTimestamp) {
             return '';
         }
 

@@ -2,8 +2,8 @@
 
 namespace TagConcierge\GtmConsentModeBannerFree\Hook;
 
-use Cookie as PrestaShopCookie;
 use Configuration as PrestaShopConfiguration;
+use Cookie as PrestaShopCookie;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
 
 trait HookTrait
