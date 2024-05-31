@@ -6,6 +6,7 @@ if (!defined('_PS_VERSION_')) {
 
 /**
  * @param GtmConsentModeBannerFree $module
+ *
  * @return bool
  */
 function upgradeModule110(GtmConsentModeBannerFree $module)

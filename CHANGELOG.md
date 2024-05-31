@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - 2024-05-31
+
+### Added
+
+### Changed
+
+### Fixed
+* fixed a consent update event order, issue related to custom GTM triggers
+* fixed redefinition of constant
+
 ## [1.1.2] - 2024-05-14
 
 ### Added

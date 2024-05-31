@@ -2,8 +2,6 @@
 
 namespace TagConcierge\GtmConsentModeBannerFree\ValueObject;
 
-use Configuration as PrestaShopConfiguration;
-
 class ConfigurationVO
 {
     /** @var string */
@@ -76,7 +74,7 @@ class ConfigurationVO
     const COOKIE_REMOVAL_ON_DENIAL = 'TC_GTMCMB_COOKIE_REMOVAL_ON_DENIAL';
 
     private static $proFields = [
-        self::COOKIE_REMOVAL_ON_DENIAL
+        self::COOKIE_REMOVAL_ON_DENIAL,
     ];
 
     /**
@@ -281,7 +279,7 @@ class ConfigurationVO
             'label' => 'GTM snippet body',
             'desc' => 'Paste the second snippet provided by GTM. It will be loaded after opening <body> tag.',
         ],
-        self::CONSENT_TYPES => []
+        self::CONSENT_TYPES => [],
     ];
 
     private static $htmlFields = [
@@ -397,8 +395,7 @@ class ConfigurationVO
         self::MAIN_MODAL_OPEN_SETTINGS_BUTTON => 'Customize',
         self::MAIN_MODAL_REJECT_BUTTON => 'Reject',
         self::SETTINGS_MODAL_TITLE => 'Customize your consent preferences',
-        self::SETTINGS_MODAL_CONTENT =>
-'We use cookies to help users navigate and perform certain functions efficiently. Details of all cookies corresponding to each consent category can be found below.
+        self::SETTINGS_MODAL_CONTENT => 'We use cookies to help users navigate and perform certain functions efficiently. Details of all cookies corresponding to each consent category can be found below.
 
 Cookies classified as "essential" are stored in the user\'s browser because they are necessary to enable basic site functions.
 
@@ -440,8 +437,8 @@ You can enable or disable some or all of these cookies, but disabling some of th
                 'title' => 'Functional',
                 'description' => 'Functional cookies help perform certain functions, such as sharing site content on social media platforms, collecting feedback and other third-party functions.',
                 'default' => 'denied',
-            ]
-        ]
+            ],
+        ],
     ];
 
     /**
@@ -462,6 +459,7 @@ You can enable or disable some or all of these cookies, but disabling some of th
 
     /**
      * @param string $form
+     *
      * @return array
      */
     public static function getFormFields($form)
@@ -476,6 +474,7 @@ You can enable or disable some or all of these cookies, but disabling some of th
 
     /**
      * @param string $fieldName
+     *
      * @return bool
      */
     public static function isHtmlField($fieldName)
@@ -485,6 +484,7 @@ You can enable or disable some or all of these cookies, but disabling some of th
 
     /**
      * @param string $fieldName
+     *
      * @return string|array|null
      */
     public static function getDefaultValue($fieldName)
@@ -494,6 +494,7 @@ You can enable or disable some or all of these cookies, but disabling some of th
 
     /**
      * @param string $fieldName
+     *
      * @return bool
      */
     public static function isProFeature($fieldName)

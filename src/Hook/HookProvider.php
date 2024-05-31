@@ -23,6 +23,7 @@ class HookProvider
 
     /**
      * @param string $hookClass
+     *
      * @return AbstractHook
      */
     public function provide($hookClass)

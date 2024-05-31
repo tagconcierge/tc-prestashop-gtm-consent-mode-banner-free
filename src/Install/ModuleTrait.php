@@ -3,9 +3,9 @@
 namespace TagConcierge\GtmConsentModeBannerFree\Install;
 
 use Configuration as PrestaShopConfiguration;
+use TagConcierge\GtmConsentModeBannerFree\Hook\HookProvider;
 use TagConcierge\GtmConsentModeBannerFree\Service\SettingsService;
 use TagConcierge\GtmConsentModeBannerFree\ValueObject\ConfigurationVO;
-use TagConcierge\GtmConsentModeBannerFree\Hook\HookProvider;
 use Tools as PrestaShopTools;
 
 trait ModuleTrait
@@ -28,7 +28,9 @@ trait ModuleTrait
      */
     private function init()
     {
-        @define('TC_GTMCMB_VERSION', $this->version);
+        if (false === defined('TC_GTMCMB_VERSION')) {
+            define('TC_GTMCMB_VERSION', $this->version);
+        }
 
         $this->hookProvider = new HookProvider($this);
         $this->settingsService = new SettingsService($this);
@@ -78,10 +80,11 @@ trait ModuleTrait
      */
     public function getContent()
     {
+        $isSubmit = false;
         $this->context->smarty->assign('module_dir', $this->_path);
         $this->context->smarty->assign('plugin_version', $this->version);
 
-        $output = false === $this->isPro() ? $this->getInfoBox() : '';
+        $output = $this->getInfoBox();
 
         if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_consent_types')) {
             PrestaShopConfiguration::updateValue(
@@ -89,10 +92,12 @@ trait ModuleTrait
                 json_encode(PrestaShopTools::getValue(ConfigurationVO::CONSENT_TYPES)),
                 ConfigurationVO::isHtmlField(ConfigurationVO::CONSENT_TYPES)
             );
+
+            $isSubmit = true;
         }
 
         foreach (array_keys(ConfigurationVO::getForms()) as $formName) {
-            if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_'.$formName)) {
+            if (PrestaShopTools::isSubmit('tc_gtmcmb_submit_' . $formName)) {
                 // get actual value of PS_USE_HTMLPURIFIER
                 $usePurifier = PrestaShopConfiguration::get('PS_USE_HTMLPURIFIER');
                 // disable it to allow store gtm snippets in configuration
@@ -109,7 +114,13 @@ trait ModuleTrait
                 $output .= $this->displayConfirmation('Settings updated.');
                 // restore original value of PS_USE_HTMLPURIFIER
                 PrestaShopConfiguration::updateValue('PS_USE_HTMLPURIFIER', $usePurifier);
+
+                $isSubmit = true;
             }
+        }
+
+        if (true === $isSubmit) {
+            $this->settingsService->postSettingsSave();
         }
 
         foreach (ConfigurationVO::getForms() as $formName => $formDetails) {
@@ -122,7 +133,7 @@ trait ModuleTrait
             $helper->allow_employee_form_lang = PrestaShopConfiguration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
 
             $helper->identifier = $this->identifier;
-            $helper->submit_action = 'tc_gtmcmb_submit_'.$formName;
+            $helper->submit_action = 'tc_gtmcmb_submit_' . $formName;
             $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
                 . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
             $helper->token = PrestaShopTools::getAdminTokenLite('AdminModules');
@@ -215,6 +226,7 @@ trait ModuleTrait
 
     /**
      * @param string $templatePath
+     *
      * @return string
      */
     public function render($templatePath)
@@ -243,6 +255,7 @@ trait ModuleTrait
     /**
      * @param string $name
      * @param array $arguments
+     *
      * @return string|null
      */
     public function __call($name, array $arguments)

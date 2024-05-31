@@ -10,6 +10,7 @@ class Installer
 {
     /**
      * @param TagConciergeModuleInterface $module
+     *
      * @return bool
      */
     public function install(TagConciergeModuleInterface $module)
@@ -38,6 +39,7 @@ class Installer
 
     /**
      * @param TagConciergeModuleInterface $module
+     *
      * @return bool
      */
     public function uninstall(TagConciergeModuleInterface $module)
@@ -54,6 +56,7 @@ class Installer
 
     /**
      * @param TagConciergeModuleInterface $module
+     *
      * @return bool
      */
     public function resetHooks(TagConciergeModuleInterface $module)
@@ -63,6 +66,7 @@ class Installer
 
     /**
      * @param TagConciergeModuleInterface $module
+     *
      * @return bool
      */
     private function registerHooks(TagConciergeModuleInterface $module)
@@ -78,6 +82,7 @@ class Installer
 
     /**
      * @param TagConciergeModuleInterface $module
+     *
      * @return bool
      */
     private function unregisterHooks(TagConciergeModuleInterface $module)

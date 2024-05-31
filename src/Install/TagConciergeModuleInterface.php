@@ -8,6 +8,7 @@ interface TagConciergeModuleInterface
 {
     /**
      * @param string $templatePath
+     *
      * @return string
      */
     public function render($templatePath);

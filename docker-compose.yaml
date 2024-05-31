@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     prestashop:
-        image: prestashop/prestashop:8.1.5
+        image: prestashop/prestashop:8.1.6
         links:
             - mariadb
         ports:
@@ -18,7 +18,7 @@ services:
             PS_INSTALL_AUTO: 1
             PS_DOMAIN: prestashop.local
             ADMIN_MAIL: contact@tagconcierge.com
-            ADMIN_PASSWD: tag_concierge_admin
+            ADMIN_PASSWD: admin123
     mariadb:
         image: mariadb:10.6
         ports:
