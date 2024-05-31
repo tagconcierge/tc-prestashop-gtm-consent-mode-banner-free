@@ -9,11 +9,11 @@
   try {
     var consentPreferences = JSON.parse(localStorage.getItem('consent_preferences'));
     if (consentPreferences !== null) {
+      gtag('consent', 'update', consentPreferences);
       dataLayer.push({
         event: 'consent_update',
         consent_state: consentPreferences
       });
-      gtag('consent', 'update', consentPreferences);
     }
   } catch (error) {}
 </script>

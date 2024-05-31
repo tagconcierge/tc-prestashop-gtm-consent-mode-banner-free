@@ -28,7 +28,9 @@ trait ModuleTrait
      */
     private function init()
     {
-        @define('TC_GTMCMB_VERSION', $this->version);
+        if (false === defined('TC_GTMCMB_VERSION')) {
+            define('TC_GTMCMB_VERSION', $this->version);
+        }
 
         $this->hookProvider = new HookProvider($this);
         $this->settingsService = new SettingsService($this);
