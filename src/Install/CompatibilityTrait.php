@@ -19,6 +19,6 @@ trait CompatibilityTrait
             return parent::trans($id, $parameters, $domain, $locale);
         }
 
-        return $this->l($id);
+        return $this->l($id, 'translations');
     }
 }
